@@ -16,4 +16,6 @@ public interface CursoService {
     void delete(Long id);
 
     void deleteAll();
+
+    boolean existsById(Long id);
 }
