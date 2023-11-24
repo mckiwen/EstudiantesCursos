@@ -46,7 +46,7 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public void deleteAll() {
-        log.info("Ejecutando método para eliminar todos los");
+        log.info("Ejecutando método para eliminar todos los cursos");
         this.cursoRepository.deleteAll();
     }
 
