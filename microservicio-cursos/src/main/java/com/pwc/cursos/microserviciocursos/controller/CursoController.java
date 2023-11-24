@@ -91,9 +91,9 @@ public class CursoController {
     @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
     @PutMapping
     public ResponseEntity<Curso> update(@RequestBody Curso curso){
-        log.info("Petición POST para actualizar un curso existente");
+        log.info("Petición PUT para actualizar un curso existente");
         if(curso.getId() == null){
-            log.warn("Petición POST para actualizar un curso existente debe contener un Id");
+            log.warn("Petición PUT para actualizar un curso existente debe contener un Id");
             return ResponseEntity.badRequest().build();
         }
         if(!cursoService.existsById(curso.getId())){
@@ -114,7 +114,7 @@ public class CursoController {
     @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
     @DeleteMapping("/{id}")
     public ResponseEntity<Curso> deleteById(@PathVariable Long id){
-        log.info("Petición POST para eliminar un curso existente");
+        log.info("Petición DETELE para eliminar un curso existente");
         if(!cursoService.existsById(id)){
             log.warn("Recurso no encontrado");
             return ResponseEntity.notFound().build();
@@ -131,7 +131,7 @@ public class CursoController {
     @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: Cursos eliminados")
     @DeleteMapping
     public ResponseEntity<Curso> deleteAll(){
-        log.info("Petición POST para eliminar todos los cursos");
+        log.info("Petición DELETE para eliminar todos los cursos");
         this.cursoService.deleteAll();
         return ResponseEntity.noContent().build();
     }
