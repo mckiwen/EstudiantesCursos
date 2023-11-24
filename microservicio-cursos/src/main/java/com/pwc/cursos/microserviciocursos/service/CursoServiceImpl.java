@@ -28,21 +28,21 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public Optional<Curso> findById(Long id) {
-        return Optional.empty();
+        return this.cursoRepository.findById(id);
     }
 
     @Override
     public Curso save(Curso curso) {
-        return null;
+        return this.cursoRepository.save(curso);
     }
 
     @Override
     public void delete(Long id) {
-
+        this.cursoRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-
+        this.cursoRepository.deleteAll();
     }
 }
