@@ -1,5 +1,6 @@
 package com.pwc.cursos.microservicioinscripciones.controller;
 
+import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
 import com.pwc.cursos.microservicioinscripciones.service.InscripcionService;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/inscripciones")
@@ -25,5 +27,11 @@ public class InscripcionController {
     public ResponseEntity<List<Inscripcion>> findAllByIdCurso(@PathVariable Long idCurso){
         List<Inscripcion> listInscripcion = this.inscripcionService.findAllByIdCurso(idCurso);
         return ResponseEntity.ok(listInscripcion);
+    }
+
+    @GetMapping("/test/{idCurso}")
+    public ResponseEntity<InscripcionCursoDTO> findByIdCurso(@PathVariable Long idCurso){
+        Optional<InscripcionCursoDTO> inscripcionCursoDTO = this.inscripcionService.findByIdCurso(idCurso);
+        return ResponseEntity.ok(inscripcionCursoDTO.get());
     }
 }
