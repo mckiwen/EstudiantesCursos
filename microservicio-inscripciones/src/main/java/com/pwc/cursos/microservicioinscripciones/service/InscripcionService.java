@@ -1,6 +1,7 @@
 package com.pwc.cursos.microservicioinscripciones.service;
 
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
+import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionesDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
 import com.pwc.cursos.microservicioinscripciones.entity.InscripcionId;
 
@@ -16,4 +17,6 @@ public interface InscripcionService {
     boolean existsByInscripcion(Inscripcion inscripcion);
 
     Inscripcion save(Inscripcion inscripcion);
+
+    InscripcionesDTO save(InscripcionesDTO inscripcionesDTO);
 }

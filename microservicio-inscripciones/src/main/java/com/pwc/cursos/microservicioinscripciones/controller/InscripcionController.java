@@ -1,6 +1,7 @@
 package com.pwc.cursos.microservicioinscripciones.controller;
 
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
+import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionesDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
 import com.pwc.cursos.microservicioinscripciones.entity.InscripcionId;
 import com.pwc.cursos.microservicioinscripciones.service.InscripcionService;
@@ -43,8 +44,16 @@ public class InscripcionController {
     }
 
     @PostMapping("/curso")
+    public ResponseEntity<InscripcionesDTO> save(@RequestBody InscripcionesDTO inscripcionesDTO){
+        InscripcionesDTO inscripcionesDTOinscritos = this.inscripcionService.save(inscripcionesDTO);
+        return ResponseEntity.ok(inscripcionesDTOinscritos);
+    }
+
+
+
+/*    @PostMapping("/curso")
     public ResponseEntity<Inscripcion> save(@RequestBody Inscripcion inscripcion){
         this.inscripcionService.save(inscripcion);
         return ResponseEntity.ok(inscripcion);
-    }
+    }*/
 }

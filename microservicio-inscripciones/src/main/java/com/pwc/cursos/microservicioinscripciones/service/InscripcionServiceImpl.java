@@ -3,6 +3,7 @@ package com.pwc.cursos.microservicioinscripciones.service;
 import com.pwc.cursos.microservicioinscripciones.dtos.CursoDTO;
 import com.pwc.cursos.microservicioinscripciones.dtos.EstudianteDTO;
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
+import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionesDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
 import com.pwc.cursos.microservicioinscripciones.entity.InscripcionId;
 import com.pwc.cursos.microservicioinscripciones.repository.InscripcionRepository;
@@ -76,7 +77,24 @@ public class InscripcionServiceImpl implements InscripcionService {
         return inscripcion;
     }
 
-
+    @Override
+    public InscripcionesDTO save(InscripcionesDTO inscripcionesDTO) {
+        Long idCurso = inscripcionesDTO.getIdCurso();
+        List<Long> listIdEstudiante = inscripcionesDTO.getIdEstudianteList();
+        List<Long> listEstudianteInscrito = new ArrayList<>();
+        for(Long idEstudiante : listIdEstudiante){
+            Inscripcion inscripcion = new Inscripcion(idCurso, idEstudiante);
+            if(!existsByInscripcion(inscripcion)){
+                log.info("Inscripcion realizada con éxito");
+                this.inscripcionRepository.save(inscripcion);
+                listEstudianteInscrito.add(idEstudiante);
+            } else {
+                log.warn("Inscripcion idCurso: " + idCurso + " idEstudiante: " + idEstudiante + " ya existe.");
+            }
+        }
+        inscripcionesDTO.setIdEstudianteList(listEstudianteInscrito);
+        return inscripcionesDTO;
+    }
 
 
     @Override
