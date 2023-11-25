@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface InscripcionRepository extends JpaRepository<Inscripcion, InscripcionId> {
     List<Inscripcion> findAllByIdCurso(Long idCurso);
 
+    boolean existsByIdCurso(Long idCurso);
+
     boolean existsByIdCursoAndIdEstudiante(Long idCurso, Long idEstudiante);
 
     //Optional<Inscripcion> findByIdCursoAndIdEstudiante(Long idCurso, Long idEstudiante);

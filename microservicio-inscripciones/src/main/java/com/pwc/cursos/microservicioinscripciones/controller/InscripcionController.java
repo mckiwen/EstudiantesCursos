@@ -30,13 +30,15 @@ public class InscripcionController {
     @GetMapping("/cursos/{idCurso}")
     public ResponseEntity<InscripcionCursoDTO> findByIdCurso(@PathVariable Long idCurso){
         Optional<InscripcionCursoDTO> inscripcionCursoDTO = this.inscripcionService.findByIdCurso(idCurso);
-        return ResponseEntity.ok(inscripcionCursoDTO.get());
+        return inscripcionCursoDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Inscripcion> existsByInscripcion(@RequestBody Inscripcion inscripcion){
-        System.out.println(inscripcion);
-        System.out.println(this.inscripcionService.existsByInscripcion(inscripcion));
+        boolean exists = this.inscripcionService.existsByInscripcion(inscripcion);
+        if(!exists){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(inscripcion);
     }
 

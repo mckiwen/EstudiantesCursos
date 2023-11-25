@@ -38,6 +38,10 @@ public class InscripcionServiceImpl implements InscripcionService {
 
     @Override
     public Optional<InscripcionCursoDTO> findByIdCurso(Long idCurso) {
+        boolean exists = this.inscripcionRepository.existsByIdCurso(idCurso);
+        if(!exists){
+            return Optional.empty();
+        }
         List<Inscripcion> listInscripcion = findAllByIdCurso(idCurso);
         ResponseEntity<CursoDTO> responseCurso = restTemplate.getForEntity(
                 "http://localhost:8080/api/cursos/" + idCurso,
