@@ -2,13 +2,11 @@ package com.pwc.cursos.microservicioinscripciones.controller;
 
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
+import com.pwc.cursos.microservicioinscripciones.entity.InscripcionId;
 import com.pwc.cursos.microservicioinscripciones.service.InscripcionService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +27,22 @@ public class InscripcionController {
         return ResponseEntity.ok(listInscripcion);
     }
 
-    @GetMapping("/test/{idCurso}")
+    @GetMapping("/cursos/{idCurso}")
     public ResponseEntity<InscripcionCursoDTO> findByIdCurso(@PathVariable Long idCurso){
         Optional<InscripcionCursoDTO> inscripcionCursoDTO = this.inscripcionService.findByIdCurso(idCurso);
         return ResponseEntity.ok(inscripcionCursoDTO.get());
+    }
+
+    @PostMapping
+    public ResponseEntity<Inscripcion> existsByInscripcion(@RequestBody Inscripcion inscripcion){
+        System.out.println(inscripcion);
+        System.out.println(this.inscripcionService.existsByInscripcion(inscripcion));
+        return ResponseEntity.ok(inscripcion);
+    }
+
+    @PostMapping("/curso")
+    public ResponseEntity<Inscripcion> save(@RequestBody Inscripcion inscripcion){
+        this.inscripcionService.save(inscripcion);
+        return ResponseEntity.ok(inscripcion);
     }
 }

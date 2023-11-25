@@ -1,9 +1,13 @@
 package com.pwc.cursos.microservicioinscripciones.service;
 
 import com.pwc.cursos.microservicioinscripciones.dtos.CursoDTO;
+import com.pwc.cursos.microservicioinscripciones.dtos.EstudianteDTO;
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
+import com.pwc.cursos.microservicioinscripciones.entity.InscripcionId;
 import com.pwc.cursos.microservicioinscripciones.repository.InscripcionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,8 @@ import java.util.Optional;
 
 @Service
 public class InscripcionServiceImpl implements InscripcionService {
+
+    private final Logger log = LoggerFactory.getLogger(InscripcionServiceImpl.class);
 
     private InscripcionRepository inscripcionRepository;
 
@@ -33,17 +39,48 @@ public class InscripcionServiceImpl implements InscripcionService {
     @Override
     public Optional<InscripcionCursoDTO> findByIdCurso(Long idCurso) {
         List<Inscripcion> listInscripcion = findAllByIdCurso(idCurso);
-        ResponseEntity<CursoDTO> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/cursos/" + idCurso, CursoDTO.class);
+        ResponseEntity<CursoDTO> responseCurso = restTemplate.getForEntity(
+                "http://localhost:8080/api/cursos/" + idCurso,
+                CursoDTO.class);
 
-        System.out.println(responseEntity.getBody());
-        CursoDTO response = responseEntity.getBody();
-        InscripcionCursoDTO inscripcionCursoDTO = new InscripcionCursoDTO();
-        inscripcionCursoDTO.setIdCurso(idCurso);
-        inscripcionCursoDTO.setNombre(response.getNombre());
-        inscripcionCursoDTO.setDescripcion(response.getDescripcion());
-        inscripcionCursoDTO.setFechaInicio(response.getFechaInicio());
-        inscripcionCursoDTO.setFechaFin(response.getFechaFin());
-        inscripcionCursoDTO.setListEstudiante(new ArrayList<>());
+        List<EstudianteDTO> listEstudiantes = new ArrayList<>();
+        for(Inscripcion inscripcion : listInscripcion){
+            ResponseEntity<EstudianteDTO> responseEstudiante = restTemplate.getForEntity(
+                    "http://localhost:8081/api/estudiantes/" + inscripcion.getIdEstudiante(),
+                    EstudianteDTO.class);
+            listEstudiantes.add(responseEstudiante.getBody());
+        }
+
+        CursoDTO curso = responseCurso.getBody();
+        InscripcionCursoDTO inscripcionCursoDTO = new InscripcionCursoDTO(idCurso,
+                curso.getNombre(),
+                curso.getDescripcion(),
+                curso.getFechaInicio(),
+                curso.getFechaFin(),
+                listEstudiantes);
+
         return Optional.of(inscripcionCursoDTO);
     }
+
+    @Override
+    public Inscripcion save(Inscripcion inscripcion) {
+        if(!existsByInscripcion(inscripcion)){
+            log.info("Inscripcion realizada con éxito");
+            return this.inscripcionRepository.save(inscripcion);
+        }
+        log.warn("Inscripcion ya existente");
+        return inscripcion;
+    }
+
+
+
+
+    @Override
+    public boolean existsByInscripcion(Inscripcion inscripcion) {
+        Long idCurso = inscripcion.getIdCurso();
+        Long idEstudiante = inscripcion.getIdEstudiante();
+        return this.inscripcionRepository.existsByIdCursoAndIdEstudiante(idCurso, idEstudiante);
+    }
+
+
 }
