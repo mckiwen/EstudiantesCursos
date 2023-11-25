@@ -34,15 +34,6 @@ public class InscripcionController {
         return inscripcionCursoDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Inscripcion> existsByInscripcion(@RequestBody Inscripcion inscripcion){
-        boolean exists = this.inscripcionService.existsByInscripcion(inscripcion);
-        if(!exists){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(inscripcion);
-    }
-
     @PostMapping("/curso")
     public ResponseEntity<InscripcionesDTO> save(@RequestBody InscripcionesDTO inscripcionesDTO){
         InscripcionesDTO inscripcionesDTOinscritos = this.inscripcionService.save(inscripcionesDTO);
@@ -55,11 +46,4 @@ public class InscripcionController {
         return ResponseEntity.ok(inscripcionesDTObaja);
     }
 
-
-
-/*    @PostMapping("/curso")
-    public ResponseEntity<Inscripcion> save(@RequestBody Inscripcion inscripcion){
-        this.inscripcionService.save(inscripcion);
-        return ResponseEntity.ok(inscripcion);
-    }*/
 }

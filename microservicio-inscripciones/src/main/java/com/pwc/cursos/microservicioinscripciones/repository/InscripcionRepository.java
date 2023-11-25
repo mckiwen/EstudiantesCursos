@@ -16,8 +16,4 @@ public interface InscripcionRepository extends JpaRepository<Inscripcion, Inscri
 
     boolean existsByIdCursoAndIdEstudiante(Long idCurso, Long idEstudiante);
 
-    //Optional<Inscripcion> findByIdCursoAndIdEstudiante(Long idCurso, Long idEstudiante);
-
-
-    //Optional<Inscripcion> findByidCursoidEstudiante(Long idCurso, Long idEstudiante);
 }

@@ -68,16 +68,6 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
 
     @Override
-    public Inscripcion save(Inscripcion inscripcion) {
-        if(!existsByInscripcion(inscripcion)){
-            log.info("Inscripcion realizada con éxito");
-            return this.inscripcionRepository.save(inscripcion);
-        }
-        log.warn("Inscripcion ya existente");
-        return inscripcion;
-    }
-
-    @Override
     public InscripcionesDTO save(InscripcionesDTO inscripcionesDTO) {
         Long idCurso = inscripcionesDTO.getIdCurso();
         List<Long> listIdEstudiante = inscripcionesDTO.getIdEstudianteList();

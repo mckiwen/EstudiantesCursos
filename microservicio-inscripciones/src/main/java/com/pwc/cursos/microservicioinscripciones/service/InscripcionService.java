@@ -16,7 +16,6 @@ public interface InscripcionService {
 
     boolean existsByInscripcion(Inscripcion inscripcion);
 
-    Inscripcion save(Inscripcion inscripcion);
 
     InscripcionesDTO save(InscripcionesDTO inscripcionesDTO);
 
