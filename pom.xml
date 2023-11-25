@@ -21,6 +21,7 @@
 	<modules>
 		<module>microservicio-estudiantes</module>
 		<module>microservicio-cursos</module>
+		<module>microservicio-inscripciones</module>
 	</modules>
 
 	<properties>
