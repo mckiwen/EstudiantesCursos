@@ -19,4 +19,6 @@ public interface InscripcionService {
     Inscripcion save(Inscripcion inscripcion);
 
     InscripcionesDTO save(InscripcionesDTO inscripcionesDTO);
+
+    InscripcionesDTO delete(InscripcionesDTO inscripcionesDTO);
 }

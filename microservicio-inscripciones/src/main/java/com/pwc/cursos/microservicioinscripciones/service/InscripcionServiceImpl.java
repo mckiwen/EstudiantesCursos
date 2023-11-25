@@ -96,6 +96,25 @@ public class InscripcionServiceImpl implements InscripcionService {
         return inscripcionesDTO;
     }
 
+    @Override
+    public InscripcionesDTO delete(InscripcionesDTO inscripcionesDTO) {
+        Long idCurso = inscripcionesDTO.getIdCurso();
+        List<Long> listIdEstudiante = inscripcionesDTO.getIdEstudianteList();
+        List<Long> listEstudianteBaja = new ArrayList<>();
+        for(Long idEstudiante : listIdEstudiante){
+            Inscripcion inscripcion = new Inscripcion(idCurso, idEstudiante);
+            if(existsByInscripcion(inscripcion)){
+                log.info("Baja realizada con éxito");
+                this.inscripcionRepository.delete(inscripcion);
+                listEstudianteBaja.add(idEstudiante);
+            } else {
+                log.warn("Inscripcion idCurso: " + idCurso + " idEstudiante: " + idEstudiante + " no existe.");
+            }
+        }
+        inscripcionesDTO.setIdEstudianteList(listEstudianteBaja);
+        return inscripcionesDTO;
+    }
+
 
     @Override
     public boolean existsByInscripcion(Inscripcion inscripcion) {

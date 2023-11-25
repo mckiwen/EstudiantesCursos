@@ -49,6 +49,12 @@ public class InscripcionController {
         return ResponseEntity.ok(inscripcionesDTOinscritos);
     }
 
+    @DeleteMapping("/curso")
+    public ResponseEntity<InscripcionesDTO> delete(@RequestBody InscripcionesDTO inscripcionesDTO){
+        InscripcionesDTO inscripcionesDTObaja = this.inscripcionService.delete(inscripcionesDTO);
+        return ResponseEntity.ok(inscripcionesDTObaja);
+    }
+
 
 
 /*    @PostMapping("/curso")
