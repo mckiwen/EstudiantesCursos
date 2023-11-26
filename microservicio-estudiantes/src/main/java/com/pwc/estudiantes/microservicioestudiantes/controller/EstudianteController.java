@@ -65,8 +65,7 @@ public class EstudianteController {
             @ExampleObject(value = EXAMPLE_VALUE_ESTUDIANTE1_JSON)
     }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     @ApiResponse(responseCode = "404", description = "Recurso no encontrado", content = @Content(examples = {
-            @ExampleObject(value = "")
-    }))
+            @ExampleObject(value = "")}))
     @GetMapping("/{id}")
     public ResponseEntity<Estudiante> findById(@PathVariable Long id){
         log.info("Petición GET para buscar un estudiante por Id");
