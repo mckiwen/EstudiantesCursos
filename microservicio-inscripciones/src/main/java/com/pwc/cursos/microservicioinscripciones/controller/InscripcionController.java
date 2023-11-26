@@ -46,8 +46,14 @@ public class InscripcionController {
         return ResponseEntity.ok(inscripcionesDTObaja);
     }
 
+    @DeleteMapping("/curso/{idCurso}")
+    public ResponseEntity<Long> deleteCurso(@PathVariable Long idCurso){
+        this.inscripcionService.deleteByIdCurso(idCurso);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/estudiante/{idEstudiante}")
-    public ResponseEntity<Long> delete(@PathVariable Long idEstudiante){
+    public ResponseEntity<Long> deleteEstudiante(@PathVariable Long idEstudiante){
         this.inscripcionService.deleteByIdEstudiante(idEstudiante);
         return ResponseEntity.noContent().build();
     }

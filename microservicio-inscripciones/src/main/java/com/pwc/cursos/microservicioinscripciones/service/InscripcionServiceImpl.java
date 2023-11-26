@@ -110,6 +110,11 @@ public class InscripcionServiceImpl implements InscripcionService {
         this.inscripcionRepository.deleteAllByIdEstudiante(idEstudiante);
     }
 
+    @Override
+    public void deleteByIdCurso(Long idCurso) {
+        this.inscripcionRepository.deleteAllByIdCurso(idCurso);
+    }
+
 
     @Override
     public boolean existsByInscripcion(Inscripcion inscripcion) {

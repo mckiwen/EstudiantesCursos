@@ -23,4 +23,9 @@ public interface InscripcionRepository extends JpaRepository<Inscripcion, Inscri
     @Query("DELETE FROM Inscripcion ins WHERE ins.idEstudiante = :idEstudiante")
     void deleteAllByIdEstudiante(Long idEstudiante);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Inscripcion ins WHERE ins.idCurso = :idCurso")
+    void deleteAllByIdCurso(Long idCurso);
+
 }
