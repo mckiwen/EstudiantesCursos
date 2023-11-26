@@ -20,6 +20,11 @@ import java.util.Optional;
 @RequestMapping("/api/estudiantes")
 public class EstudianteController {
 
+    private static final String EXAMPLE_VALUE_ESTUDIANTE1_JSON = "{\"id\": 1, \"nombre\": \"Antonio\", \"apellido\": \"Gomez\", \"fechaNacimiento\": \"1991-04-22\"}";
+    private static final String EXAMPLE_VALUE_ESTUDIANTE2_JSON = "{\"id\": 2, \"nombre\": \"Maria\", \"apellido\": \"Marquez\", \"fechaNacimiento\": \"1995-08-17\"}";
+    private static final String EXAMPLE_VALUE_ESTUDIANTE3_JSON = "{\"id\": 9, \"nombre\": \"Antonio\", \"apellido\": \"Gomez\", \"fechaNacimiento\": \"1991-04-22\"}";
+    private static final String EXAMPLE_VALUE_ESTUDIANTE_NOID_JSON = "{\"nombre\": \"Antonio\", \"apellido\": \"Gomez\", \"fechaNacimiento\": \"1991-04-22\"}";
+
     private final Logger log = LoggerFactory.getLogger(EstudianteServiceImpl.class);
 
     private EstudianteService estudianteService;
@@ -34,8 +39,7 @@ public class EstudianteController {
      */
     @Operation(summary = "Obtiene la lista completa de estudiantes")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Recursos encontrados", content = @Content(examples = {
-            @ExampleObject(value = "[{\"id\": 1, \"nombre\": \"Antonio\", \"apellido\": \"Garcia\", \"fechaNacimiento\": \"1992-05-09\"}, " +
-                    "{\"id\": 2, \"nombre\": \"Maria\", \"apellido\": \"Marquez\", \"fechaNacimiento\": \"1995-08-17\"}]")
+            @ExampleObject(value = "["+EXAMPLE_VALUE_ESTUDIANTE1_JSON +", " +EXAMPLE_VALUE_ESTUDIANTE2_JSON+"]")
     }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: No hay ningún estudiante", content = @Content(examples = {
             @ExampleObject(value = "[]")
@@ -58,9 +62,9 @@ public class EstudianteController {
      */
     @Operation(summary = "Obtiene un estudiante dado un Id")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Recurso encontrado", content = @Content(examples = {
-            @ExampleObject(value = "{\"id\": 1, \"nombre\": \"Antonio\", \"apellido\": \"Garcia\", \"fechaNacimiento\": \"1992-05-09\"}")
+            @ExampleObject(value = EXAMPLE_VALUE_ESTUDIANTE1_JSON)
     }, mediaType = MediaType.APPLICATION_JSON_VALUE))
-    @ApiResponse(responseCode = "404", description = "Recurso no encontrado" , content = @Content(examples = {
+    @ApiResponse(responseCode = "404", description = "Recurso no encontrado", content = @Content(examples = {
             @ExampleObject(value = "")
     }))
     @GetMapping("/{id}")
@@ -79,9 +83,14 @@ public class EstudianteController {
      * @param estudiante
      * @return
      */
-    @Operation(summary = "Crea un estudiante mediante una petición POST")
-    @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiante creado")
-    @ApiResponse(responseCode = "400", description = "Petición errónea")
+    @Operation(summary = "Registra un estudiante mediante una petición POST")
+    @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiante registrado", content = @Content(examples = {
+            @ExampleObject(value = EXAMPLE_VALUE_ESTUDIANTE3_JSON)
+    }, mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @ApiResponse(responseCode = "400", description = "Petición errónea", content = @Content(examples = {
+            @ExampleObject(value = "")}))
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(
+            examples = @ExampleObject(name = "Ejemplo de Solicitud", value = EXAMPLE_VALUE_ESTUDIANTE_NOID_JSON)))
     @PostMapping
     public ResponseEntity<Estudiante> create(@RequestBody Estudiante estudiante){
         log.info("Petición POST para registrar un nuevo estudiante");
@@ -99,8 +108,12 @@ public class EstudianteController {
      */
     @Operation(summary = "Actualiza los datos de un estudiante con un método PUT.")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiante actualizado")
-    @ApiResponse(responseCode = "400", description = "Petición errónea")
-    @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
+    @ApiResponse(responseCode = "400", description = "Petición errónea", content = @Content(examples = {
+            @ExampleObject(value = "")}))
+    @ApiResponse(responseCode = "404", description = "Recurso no encontrado", content = @Content(examples = {
+            @ExampleObject(value = "")}))
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(
+            examples = @ExampleObject(name = "Ejemplo de Solicitud", value = EXAMPLE_VALUE_ESTUDIANTE1_JSON)))
     @PutMapping
     public ResponseEntity<Estudiante> update(@RequestBody Estudiante estudiante){
         log.info("Petición PUT para actualizar los datos de un estudiante existente");
@@ -122,8 +135,10 @@ public class EstudianteController {
      * @return
      */
     @Operation(summary = "Elimina a un estudiante dado su Id")
-    @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: Estudiante eliminado")
-    @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
+    @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: Estudiante eliminado", content = @Content(examples = {
+            @ExampleObject(value = "")}))
+    @ApiResponse(responseCode = "404", description = "Recurso no encontrado", content = @Content(examples = {
+            @ExampleObject(value = "")}))
     @DeleteMapping("/{id}")
     public ResponseEntity<Estudiante> deleteById(@PathVariable Long id){
         log.info("Petición DELETE para eliminar a un estudiante existente");
@@ -140,7 +155,8 @@ public class EstudianteController {
      * @return
      */
     @Operation(summary = "Elimina todos los estudiantes")
-    @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: Estudiantes eliminados")
+    @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: Estudiantes eliminados", content = @Content(examples = {
+            @ExampleObject(value = "")}))
     @DeleteMapping
     public ResponseEntity<Estudiante> deleteAll(){
         log.info("Petición DELETE para eliminar todos los estudiantes");
