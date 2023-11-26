@@ -48,14 +48,22 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Override
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un estudiante");
-        restTemplate.delete("http://localhost:8082/api/inscripciones/estudiante/"+id);
+        try{
+            restTemplate.delete("http://localhost:8082/api/inscripciones/estudiante/"+id);
+        } catch (Exception e){
+            log.warn(e.getMessage());
+        }
         this.estudianteRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
         log.info("Ejecutando método para eliminar todos los estudiantes");
-        restTemplate.delete("http://localhost:8082/api/inscripciones");
+        try{
+            restTemplate.delete("http://localhost:8082/api/inscripciones");
+        } catch (Exception e){
+            log.warn(e.getMessage());
+        }
         this.estudianteRepository.deleteAll();
     }
 
