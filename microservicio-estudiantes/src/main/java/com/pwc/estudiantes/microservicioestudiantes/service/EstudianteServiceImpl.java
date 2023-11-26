@@ -55,6 +55,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Override
     public void deleteAll() {
         log.info("Ejecutando método para eliminar todos los estudiantes");
+        restTemplate.delete("http://localhost:8082/api/inscripciones");
         this.estudianteRepository.deleteAll();
     }
 

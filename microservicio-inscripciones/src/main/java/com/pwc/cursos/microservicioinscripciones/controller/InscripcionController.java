@@ -58,4 +58,10 @@ public class InscripcionController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping
+    public ResponseEntity<Inscripcion> deleteAll(){
+        this.inscripcionService.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+
 }

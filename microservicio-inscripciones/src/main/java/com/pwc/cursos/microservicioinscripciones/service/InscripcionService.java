@@ -24,4 +24,6 @@ public interface InscripcionService {
     void deleteByIdEstudiante(Long idEstudiante);
 
     void deleteByIdCurso(Long idCurso);
+
+    void deleteAll();
 }

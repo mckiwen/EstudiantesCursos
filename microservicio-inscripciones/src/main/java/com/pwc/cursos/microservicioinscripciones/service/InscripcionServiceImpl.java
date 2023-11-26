@@ -115,6 +115,11 @@ public class InscripcionServiceImpl implements InscripcionService {
         this.inscripcionRepository.deleteAllByIdCurso(idCurso);
     }
 
+    @Override
+    public void deleteAll() {
+        this.inscripcionRepository.deleteAll();
+    }
+
 
     @Override
     public boolean existsByInscripcion(Inscripcion inscripcion) {
