@@ -107,7 +107,8 @@ public class EstudianteController {
      * @return Estudiante
      */
     @Operation(summary = "Actualiza los datos de un estudiante con un método PUT.")
-    @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiante actualizado")
+    @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiante actualizado", content = @Content(
+            examples = @ExampleObject(name = "Ejemplo de Solicitud", value = EXAMPLE_VALUE_ESTUDIANTE1_JSON)))
     @ApiResponse(responseCode = "400", description = "Petición errónea", content = @Content(examples = {
             @ExampleObject(value = "")}))
     @ApiResponse(responseCode = "404", description = "Recurso no encontrado", content = @Content(examples = {
