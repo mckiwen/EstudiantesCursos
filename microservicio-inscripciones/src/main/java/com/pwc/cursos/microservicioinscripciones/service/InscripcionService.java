@@ -20,4 +20,6 @@ public interface InscripcionService {
     InscripcionesDTO save(InscripcionesDTO inscripcionesDTO);
 
     InscripcionesDTO delete(InscripcionesDTO inscripcionesDTO);
+
+    void deleteByIdEstudiante(Long idEstudiante);
 }

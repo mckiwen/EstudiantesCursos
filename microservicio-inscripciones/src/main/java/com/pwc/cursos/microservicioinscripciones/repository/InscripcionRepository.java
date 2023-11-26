@@ -2,7 +2,10 @@ package com.pwc.cursos.microservicioinscripciones.repository;
 
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
 import com.pwc.cursos.microservicioinscripciones.entity.InscripcionId;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +18,9 @@ public interface InscripcionRepository extends JpaRepository<Inscripcion, Inscri
     boolean existsByIdCurso(Long idCurso);
 
     boolean existsByIdCursoAndIdEstudiante(Long idCurso, Long idEstudiante);
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Inscripcion ins WHERE ins.idEstudiante = :idEstudiante")
+    void deleteAllByIdEstudiante(Long idEstudiante);
 
 }

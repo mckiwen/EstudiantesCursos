@@ -22,13 +22,13 @@ public class InscripcionController {
         this.inscripcionService = inscripcionService;
     }
 
-    @GetMapping("/curso/{idCurso}")
+/*    @GetMapping("/curso/{idCurso}")
     public ResponseEntity<List<Inscripcion>> findAllByIdCurso(@PathVariable Long idCurso){
         List<Inscripcion> listInscripcion = this.inscripcionService.findAllByIdCurso(idCurso);
         return ResponseEntity.ok(listInscripcion);
-    }
+    }*/
 
-    @GetMapping("/cursos/{idCurso}")
+    @GetMapping("/curso/{idCurso}")
     public ResponseEntity<InscripcionCursoDTO> findByIdCurso(@PathVariable Long idCurso){
         Optional<InscripcionCursoDTO> inscripcionCursoDTO = this.inscripcionService.findByIdCurso(idCurso);
         return inscripcionCursoDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -44,6 +44,12 @@ public class InscripcionController {
     public ResponseEntity<InscripcionesDTO> delete(@RequestBody InscripcionesDTO inscripcionesDTO){
         InscripcionesDTO inscripcionesDTObaja = this.inscripcionService.delete(inscripcionesDTO);
         return ResponseEntity.ok(inscripcionesDTObaja);
+    }
+
+    @DeleteMapping("/estudiante/{idEstudiante}")
+    public ResponseEntity<Long> delete(@PathVariable Long idEstudiante){
+        this.inscripcionService.deleteByIdEstudiante(idEstudiante);
+        return ResponseEntity.noContent().build();
     }
 
 }
