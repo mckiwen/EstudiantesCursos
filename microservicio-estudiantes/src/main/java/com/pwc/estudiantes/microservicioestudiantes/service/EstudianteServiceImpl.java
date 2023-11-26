@@ -4,7 +4,10 @@ import com.pwc.estudiantes.microservicioestudiantes.entity.Estudiante;
 import com.pwc.estudiantes.microservicioestudiantes.repository.EstudianteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +16,9 @@ import java.util.Optional;
 public class EstudianteServiceImpl implements EstudianteService{
 
     private final Logger log = LoggerFactory.getLogger(EstudianteServiceImpl.class);
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     private EstudianteRepository estudianteRepository;
 
@@ -42,6 +48,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Override
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un estudiante");
+        restTemplate.delete("http://localhost:8082/api/inscripciones/estudiante/"+id);
         this.estudianteRepository.deleteById(id);
     }
 
