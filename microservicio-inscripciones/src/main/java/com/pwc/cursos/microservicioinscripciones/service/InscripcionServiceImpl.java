@@ -56,10 +56,14 @@ public class InscripcionServiceImpl implements InscripcionService {
         List<Inscripcion> listInscripcion = findAllByIdCurso(idCurso);
         List<EstudianteDTO> listEstudiantes = new ArrayList<>();
         for (Inscripcion inscripcion : listInscripcion) {
-            ResponseEntity<EstudianteDTO> responseEstudiante = restTemplate.getForEntity(
-                    "http://localhost:8081/api/estudiantes/" + inscripcion.getIdEstudiante(),
-                    EstudianteDTO.class);
-            listEstudiantes.add(responseEstudiante.getBody());
+            try{
+                ResponseEntity<EstudianteDTO> responseEstudiante = restTemplate.getForEntity(
+                        "http://localhost:8081/api/estudiantes/" + inscripcion.getIdEstudiante(),
+                        EstudianteDTO.class);
+                listEstudiantes.add(responseEstudiante.getBody());
+            } catch (Exception e){
+                log.warn(e.getMessage());
+            }
         }
 
         CursoDTO curso = responseCurso.getBody();
@@ -69,7 +73,6 @@ public class InscripcionServiceImpl implements InscripcionService {
                 curso.getFechaInicio(),
                 curso.getFechaFin(),
                 listEstudiantes);
-
         return Optional.of(inscripcionCursoDTO);
     }
 
