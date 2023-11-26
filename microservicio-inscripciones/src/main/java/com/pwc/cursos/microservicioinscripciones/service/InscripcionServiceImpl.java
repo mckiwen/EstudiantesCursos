@@ -10,6 +10,7 @@ import com.pwc.cursos.microservicioinscripciones.repository.InscripcionRepositor
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +21,12 @@ import java.util.Optional;
 
 @Service
 public class InscripcionServiceImpl implements InscripcionService {
+
+    @Value("${cursos-url}")
+    private String hostCursos;
+
+    @Value("${estudiantes-url}")
+    private String hostEstudiantes;
 
     private final Logger log = LoggerFactory.getLogger(InscripcionServiceImpl.class);
 
@@ -46,7 +53,7 @@ public class InscripcionServiceImpl implements InscripcionService {
         ResponseEntity<CursoDTO> responseCurso;
         try {
             responseCurso = restTemplate.getForEntity(
-                    "http://localhost:8080/api/cursos/" + idCurso,
+                    "http://" + hostCursos +":8080/api/cursos/" + idCurso,
                     CursoDTO.class);
         } catch (Exception e) {
             log.warn(e.getMessage());
@@ -58,7 +65,7 @@ public class InscripcionServiceImpl implements InscripcionService {
         for (Inscripcion inscripcion : listInscripcion) {
             try{
                 ResponseEntity<EstudianteDTO> responseEstudiante = restTemplate.getForEntity(
-                        "http://localhost:8081/api/estudiantes/" + inscripcion.getIdEstudiante(),
+                        "http://" + hostEstudiantes +":8081/api/estudiantes/" + inscripcion.getIdEstudiante(),
                         EstudianteDTO.class);
                 listEstudiantes.add(responseEstudiante.getBody());
             } catch (Exception e){

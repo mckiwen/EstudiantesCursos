@@ -1,19 +1,33 @@
 version: "3"
+
+networks:
+  red-microservicios:
+    driver: bridge
+
 services:
   microservicio-cursos:
     build:
       context: ./microservicio-cursos
+    networks:
+      - red-microservicios
+    hostname: host-cursos
     ports:
       - "8080:8080"
 
   microservicio-estudiantes:
     build:
       context: ./microservicio-estudiantes
+    networks:
+      - red-microservicios
+    hostname: host-estudiantes
     ports:
       - "8081:8081"
 
   microservicio-inscripciones:
     build:
       context: ./microservicio-inscripciones
+    networks:
+      - red-microservicios
+    hostname: host-inscripciones
     ports:
       - "8082:8082"

@@ -5,6 +5,7 @@ import com.pwc.cursos.microserviciocursos.repository.CursoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,6 +14,9 @@ import java.util.Optional;
 
 @Service
 public class CursoServiceImpl implements CursoService {
+
+    @Value("${inscripciones-url}")
+    private String hostInscripciones;
 
     private final Logger log = LoggerFactory.getLogger(CursoServiceImpl.class);
 
@@ -47,7 +51,7 @@ public class CursoServiceImpl implements CursoService {
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un curso");
         try{
-            restTemplate.delete("http://localhost:8082/api/inscripciones/curso/"+id);
+            restTemplate.delete("http://" + hostInscripciones +":8082/api/inscripciones/curso/"+id);
         } catch (Exception e){
             log.warn(e.getMessage());
         }
@@ -57,7 +61,7 @@ public class CursoServiceImpl implements CursoService {
     @Override
     public void deleteAll() {
         log.info("Ejecutando método para eliminar todos los cursos");
-        restTemplate.delete("http://localhost:8082/api/inscripciones");
+        restTemplate.delete("http://" + hostInscripciones + ":8082/api/inscripciones");
         this.cursoRepository.deleteAll();
     }
 
