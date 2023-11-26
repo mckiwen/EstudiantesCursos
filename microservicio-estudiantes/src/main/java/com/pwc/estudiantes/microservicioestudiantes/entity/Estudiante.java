@@ -19,10 +19,10 @@ public class Estudiante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Schema(description = "Nombre del Estudiante", example = "John Doe")
+    @Schema(description = "Nombre del Estudiante", example = "John")
     private String nombre;
 
-    @Schema(description = "Apellido del Estudiante", example = "John Doe")
+    @Schema(description = "Apellido del Estudiante", example = "Doe")
     private String apellido;
 
     @Schema(description = "Fecha de nacimiento del estudiante", example = "1991-09-27")

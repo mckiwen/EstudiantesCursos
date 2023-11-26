@@ -34,24 +34,42 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
 
+    /**
+     * Metodo para obtener la lista de Estudiantes
+     * @return List
+     */
     @Override
     public List<Estudiante> findAll() {
         log.info("Ejecutando método de listar todos los estudiantes");
         return this.estudianteRepository.findAll();
     }
 
+    /**
+     * Metodo que busca a un Estudiando dado su Id
+     * @param id Id de Estudiante
+     * @return Optional
+     */
     @Override
     public Optional<Estudiante> findById(Long id) {
         log.info("Ejecutando método buscar estudiante por Id");
         return this.estudianteRepository.findById(id);
     }
 
+    /**
+     * Metodo para guardar un Estudiante en el repositorio
+     * @param estudiante Estudiante
+     * @return Estudiante
+     */
     @Override
     public Estudiante save(Estudiante estudiante) {
         log.info("Ejecutando método para guardar un estudiante");
         return this.estudianteRepository.save(estudiante);
     }
 
+    /**
+     * Metodo para eliminar a un Estudiante del repositorio dado su Id.
+     * @param id Id de Estudiante
+     */
     @Override
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un estudiante");
@@ -63,6 +81,9 @@ public class EstudianteServiceImpl implements EstudianteService{
         this.estudianteRepository.deleteById(id);
     }
 
+    /**
+     * Metodo para eliminar todos los Estudiantes del repositorio.
+     */
     @Override
     public void deleteAll() {
         log.info("Ejecutando método para eliminar todos los estudiantes");
@@ -74,6 +95,11 @@ public class EstudianteServiceImpl implements EstudianteService{
         this.estudianteRepository.deleteAll();
     }
 
+    /**
+     * Metodo para verificar si existe un registro de un Estudiante dado su Id.
+     * @param id Id de Estudiante
+     * @return boolean
+     */
     @Override
     public boolean existsById(Long id) {
         return this.estudianteRepository.existsById(id);
