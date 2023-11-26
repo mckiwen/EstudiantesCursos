@@ -46,7 +46,11 @@ public class CursoServiceImpl implements CursoService {
     @Override
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un curso");
-        restTemplate.delete("http://localhost:8082/api/inscripciones/curso/"+id);
+        try{
+            restTemplate.delete("http://localhost:8082/api/inscripciones/curso/"+id);
+        } catch (Exception e){
+            log.warn(e.getMessage());
+        }
         this.cursoRepository.deleteById(id);
     }
 

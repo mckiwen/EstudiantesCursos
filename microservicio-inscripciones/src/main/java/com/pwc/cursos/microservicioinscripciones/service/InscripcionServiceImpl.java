@@ -40,16 +40,22 @@ public class InscripcionServiceImpl implements InscripcionService {
     @Override
     public Optional<InscripcionCursoDTO> findByIdCurso(Long idCurso) {
         boolean exists = this.inscripcionRepository.existsByIdCurso(idCurso);
-        if(!exists){
+        if (!exists) {
             return Optional.empty();
         }
-        List<Inscripcion> listInscripcion = findAllByIdCurso(idCurso);
-        ResponseEntity<CursoDTO> responseCurso = restTemplate.getForEntity(
-                "http://localhost:8080/api/cursos/" + idCurso,
-                CursoDTO.class);
+        ResponseEntity<CursoDTO> responseCurso;
+        try {
+            responseCurso = restTemplate.getForEntity(
+                    "http://localhost:8080/api/cursos/" + idCurso,
+                    CursoDTO.class);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            return Optional.empty();
+        }
 
+        List<Inscripcion> listInscripcion = findAllByIdCurso(idCurso);
         List<EstudianteDTO> listEstudiantes = new ArrayList<>();
-        for(Inscripcion inscripcion : listInscripcion){
+        for (Inscripcion inscripcion : listInscripcion) {
             ResponseEntity<EstudianteDTO> responseEstudiante = restTemplate.getForEntity(
                     "http://localhost:8081/api/estudiantes/" + inscripcion.getIdEstudiante(),
                     EstudianteDTO.class);
