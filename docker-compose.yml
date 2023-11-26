@@ -1,0 +1,19 @@
+version: "3"
+services:
+  microservicio-cursos:
+    build:
+      context: ./microservicio-cursos
+    ports:
+      - "8080:8080"
+
+  microservicio-estudiantes:
+    build:
+      context: ./microservicio-estudiantes
+    ports:
+      - "8081:8081"
+
+  microservicio-inscripciones:
+    build:
+      context: ./microservicio-inscripciones
+    ports:
+      - "8082:8082"
