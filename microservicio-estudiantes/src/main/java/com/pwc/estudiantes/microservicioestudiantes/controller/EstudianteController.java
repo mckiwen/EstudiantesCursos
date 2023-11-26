@@ -34,7 +34,7 @@ public class EstudianteController {
     }
 
     /**
-     * Obtiene la lista completa de estudiantes
+     * Endpoint que obtiene la lista completa de estudiantes
      * @return ResponseEntity
      */
     @Operation(summary = "Obtiene la lista completa de estudiantes")
@@ -56,9 +56,9 @@ public class EstudianteController {
     }
 
     /**
-     * Obtiene un estudiante dado un Id
-     * @param id
-     * @return
+     * EndPoint que obtiene un Estudiante dado un Id.
+     * @param id Id de Estudiante
+     * @return Estudiante
      */
     @Operation(summary = "Obtiene un estudiante dado un Id")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Recurso encontrado", content = @Content(examples = {
@@ -79,9 +79,9 @@ public class EstudianteController {
     }
 
     /**
-     * Registra un estudiante mediante una petición POST
-     * @param estudiante
-     * @return
+     * Endpoint que registra un estudiante mediante una petición POST
+     * @param estudiante Estudiante
+     * @return Estudiante
      */
     @Operation(summary = "Registra un estudiante mediante una petición POST")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiante registrado", content = @Content(examples = {
@@ -102,9 +102,9 @@ public class EstudianteController {
     }
 
     /**
-     * Actualiza a un estudiante con un método PUT.
-     * @param estudiante
-     * @return
+     * Endpoint que actualiza a un estudiante con un método PUT.
+     * @param estudiante Estudiante
+     * @return Estudiante
      */
     @Operation(summary = "Actualiza los datos de un estudiante con un método PUT.")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiante actualizado")
@@ -130,9 +130,9 @@ public class EstudianteController {
 
 
     /**
-     * Elimina a un estudiante dado su Id
-     * @param id
-     * @return
+     * Endpoint que elimina a un estudiante dado su Id
+     * @param id Id de Estudiante
+     * @return Estudiante
      */
     @Operation(summary = "Elimina a un estudiante dado su Id")
     @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: Estudiante eliminado", content = @Content(examples = {
@@ -151,7 +151,7 @@ public class EstudianteController {
     }
 
     /**
-     * Elimina todos los estudiantes
+     * Endpoint que elimina todos los estudiantes
      * @return
      */
     @Operation(summary = "Elimina todos los estudiantes")
