@@ -1,5 +1,6 @@
 package com.pwc.estudiantes.microservicioestudiantes.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,12 @@ public class Estudiante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Nombre del Estudiante", example = "John Doe")
     private String nombre;
+
+    @Schema(description = "Apellido del Estudiante", example = "John Doe")
     private String apellido;
+
+    @Schema(description = "Fecha de nacimiento del estudiante", example = "1991-09-27")
     private LocalDate fechaNacimiento;
 }

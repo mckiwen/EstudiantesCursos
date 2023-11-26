@@ -4,9 +4,12 @@ import com.pwc.estudiantes.microservicioestudiantes.entity.Estudiante;
 import com.pwc.estudiantes.microservicioestudiantes.service.EstudianteService;
 import com.pwc.estudiantes.microservicioestudiantes.service.EstudianteServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +33,13 @@ public class EstudianteController {
      * @return ResponseEntity
      */
     @Operation(summary = "Obtiene la lista completa de estudiantes")
-    @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Recursos encontrados")
-    @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: No hay ningún estudiante")
+    @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Recursos encontrados", content = @Content(examples = {
+            @ExampleObject(value = "[{\"id\": 1, \"nombre\": \"Antonio\", \"apellido\": \"Garcia\", \"fechaNacimiento\": \"1992-05-09\"}, " +
+                    "{\"id\": 2, \"nombre\": \"Maria\", \"apellido\": \"Marquez\", \"fechaNacimiento\": \"1995-08-17\"}]")
+    }, mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @ApiResponse(responseCode = "204", description = "Operación realizada con éxito: No hay ningún estudiante", content = @Content(examples = {
+            @ExampleObject(value = "[]")
+    }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     @GetMapping
     public ResponseEntity<List<Estudiante>> findAll(){
         List<Estudiante> listEstudiante = this.estudianteService.findAll();
