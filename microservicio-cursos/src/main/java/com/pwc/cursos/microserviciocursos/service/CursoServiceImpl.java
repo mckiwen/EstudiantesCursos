@@ -29,24 +29,42 @@ public class CursoServiceImpl implements CursoService {
         this.cursoRepository = cursoRepository;
     }
 
+    /**
+     * Metodo para obtener la lista de Cursos
+     * @return List
+     */
     @Override
     public List<Curso> findAll() {
         log.info("Ejecutando método de listar todos los cursos");
         return this.cursoRepository.findAll();
     }
 
+    /**
+     * Metodo que busca un Curso dado su Id
+     * @param id Id de Curso
+     * @return Optional
+     */
     @Override
     public Optional<Curso> findById(Long id) {
         log.info("Ejecutando método buscar curso por Id");
         return this.cursoRepository.findById(id);
     }
 
+    /**
+     * Metodo para guardar un Curso en el repositorio
+     * @param curso Curso
+     * @return Curso
+     */
     @Override
     public Curso save(Curso curso) {
         log.info("Ejecutando método para guardar un curso");
         return this.cursoRepository.save(curso);
     }
 
+    /**
+     * Metodo para eliminar un Curso del repositorio dado su Id.
+     * @param id Id de Curso
+     */
     @Override
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un curso");
@@ -58,13 +76,26 @@ public class CursoServiceImpl implements CursoService {
         this.cursoRepository.deleteById(id);
     }
 
+    /**
+     * Metodo para eliminar todos los Cursos del repositorio.
+     */
     @Override
     public void deleteAll() {
         log.info("Ejecutando método para eliminar todos los cursos");
-        restTemplate.delete("http://" + hostInscripciones + ":8082/api/inscripciones");
+        try{
+            restTemplate.delete("http://" + hostInscripciones + ":8082/api/inscripciones");
+        } catch (Exception e){
+            log.warn(e.getMessage());
+        }
+
         this.cursoRepository.deleteAll();
     }
 
+    /**
+     * Metodo para verificar si existe un registro de un Curso dado su Id.
+     * @param id Id de Curso
+     * @return boolean
+     */
     @Override
     public boolean existsById(Long id) {
         return this.cursoRepository.existsById(id);

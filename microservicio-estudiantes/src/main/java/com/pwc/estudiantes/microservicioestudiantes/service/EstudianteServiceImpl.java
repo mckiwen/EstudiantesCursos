@@ -45,7 +45,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     /**
-     * Metodo que busca a un Estudiando dado su Id
+     * Metodo que busca a un Estudiante dado su Id
      * @param id Id de Estudiante
      * @return Optional
      */
