@@ -97,6 +97,8 @@ El microservicio de cursos se encarga de gestionar la información de los cursos
 - Base de datos H2
 </b>
 
+<h4><b>Swagger</b></h4>
+
 La documentación de los endpoints de este microservicio se encuentra en la siguiente URL:
 ```
 http://localhost:8080/swagger-ui/index.html
@@ -157,6 +159,8 @@ El microservicio de estudiantes se encarga de gestionar la información de los e
 - Puerto: 8081
 - Base de datos H2
 </b>
+- 
+<h4><b>Swagger</b></h4>
 
 La documentación de los endpoints de este microservicio se encuentra en la siguiente URL:
 ```
@@ -221,6 +225,8 @@ Por lo tanto, este microservicio principalmente permite inscribir y desinscribir
 - Puerto: 8082
 - Base de datos H2
 </b>
+
+<h4><b>Swagger</b></h4>
 
 La documentación de los endpoints de este microservicio se encuentra en la siguiente URL:
 ```
