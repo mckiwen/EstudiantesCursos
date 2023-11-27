@@ -69,7 +69,7 @@ docker run -p<port>:<port> <image_id>
 ```
 Para cada microservicio se ha configurado un puerto diferente:
 ```
-microservicio-ursos: 8080
+microservicio-cursos: 8080
 microservicio-estudiantes: 8081
 microservcio-inscripciones: 8082
 ```
