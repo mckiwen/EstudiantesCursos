@@ -42,7 +42,7 @@ mvn clean install
 ```
 Llegados a este punto se pueden levantar los tres microservicios realizando su imagen de forma individual con Docker o de manera conjunta con Docker Compose.
 
-<h5>1. Método individual con Docker</h5>
+<h3>1. Método individual con Docker</h3>
 
 Cada microservicio consta de un fichero Dockerfile para construir la imagen de cada microservicio con Docker.
 Para ello nos situamos en el directorio raíz del microservicio en cuestión y ejecutamos lo siguiente en el terminal:
@@ -72,7 +72,7 @@ microservicio-estudiantes: 8081
 microservcio-inscripciones: 8082
 ```
 
-<h5>2. Método conjunto con Docker Compose</h5>
+<h3>2. Método conjunto con Docker Compose</h3>
 
 Utilizando Docker Compose se puede hacer lo anterior de manera más rápidas y conjunta. Dado que la aplicación contiene en su directorio raíz un fichero docker-compose.yml, nos debemos situar en el directorio raíz del proyecto completo y ejecutar lo siguiente:
 ```
