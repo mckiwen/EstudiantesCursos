@@ -28,6 +28,61 @@ Esta aplicación de Spring Boot basada en microservicios permite gestionar curso
 - Lombok
 - Spring Boot Dev Tools
 
-## Descripcion de los microservicios (puertos, endpoints, url de swagger, base de datos)
+## Como usar la aplicación usando Docker
 
-## Como usarlo instrucciones de compilacion y ejecucion
+Para utilizar esta aplicación partiendo del repositorio se deberán llevar a cabo las siguientes acciones:
+
+- Descargar el código, en formato ZIP o llevando a cabo el siguiente comando desde un terminal:
+```
+git clone https://github.com/mckiwen/EstudiantesCursos.git
+```
+- Acceder al directorio raiz de cada microservicio por separado y ejecutar lo siguiente:
+```
+mvn clean install
+```
+Llegados a este punto se pueden levantar los tres microservicios realizando su imagen de forma individual con Docker o de manera conjunta con Docker Compose.
+
+<h5>1. Método individual con Docker</h5>
+
+Cada microservicio consta de un fichero Dockerfile para construir la imagen de cada microservicio con Docker.
+Para ello nos situamos en el directorio raíz del microservicio en cuestión y ejecutamos lo siguiente en el terminal:
+```
+docker build -t <imagename> .
+```
+Por ejemplo, para el caso del microservicio de estudiantes:
+```
+docker build -t microservicio-estudiantes:v1.0 .
+```
+Una vez hecho esto, se puede comprobar las imágenes creadas con:
+```
+docker image ls
+```
+Para ejecutar el microservicio se debe ejecutar lo siguiente:
+```
+docker run -p<port>:<port> <imagename>
+```
+o alternativamente
+```
+docker run -p<port>:<port> <image_id>
+```
+Para cada microservicio se ha configurado un puerto diferente:
+```
+microservicio-ursos: 8080
+microservicio-estudiantes: 8081
+microservcio-inscripciones: 8082
+```
+
+<h5>2. Método conjunto con Docker Compose</h5>
+
+Utilizando Docker Compose se puede hacer lo anterior de manera más rápidas y conjunta. Dado que la aplicación contiene en su directorio raíz un fichero docker-compose.yml, nos debemos situar en el directorio raíz del proyecto completo y ejecutar lo siguiente:
+```
+docker-compose up --build
+```
+Con --build se realiza la construcción/actualización de la imagen, alternativamente se puede usar:
+```
+docker-compose up
+```
+
+## Descripcion de los microservicios (puertos, endpoints, url de swagger, base de datos) - hablar de postman
+
+
