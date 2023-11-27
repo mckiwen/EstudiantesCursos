@@ -85,6 +85,194 @@ Con --build se realiza la construcción/actualización de la imagen, alternativa
 docker-compose up
 ```
 
-## Descripcion de los microservicios (puertos, endpoints, url de swagger, base de datos) - hablar de postman
+## Microservicios
+
+Para el testeo de los microservicios se puede utilizar herramientas como Postman o Swagger, donde se pueden realizar peticiones HTTP a los diferentes Endpoints.
+
+<h3>Microservicio de Cursos</h3>
+
+El microservicio de cursos se encarga de gestionar la información de los cursos. Permite crear curso, leer un curso, listar los cursos, actualizar un curso y eliminar cursos.
+<b>
+- Puerto: 8080
+- Base de datos H2
+</b>
+
+La documentación de los endpoints de este microservicio se encuentra en la siguiente URL:
+```
+http://localhost:8080/swagger-ui/index.html
+```
+Una vez arrancado el microservicio, se realizarán las peticiones en 
+```
+http://localhost:8080/{ruta}
+```
+con las siguientes rutas
+<table>
+    <thead>
+        <tr>
+            <th>Método</th>
+            <th>Ruta</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</td>
+            <td>/api/cursos</td>
+            <td>Obtiene la lista completa de cursos</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/cursos/{id}</td>
+            <td>Obtiene un curso dado un Id</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/api/cursos</td>
+            <td>Crea un curso</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/api/cursos</td>
+            <td>Actualiza la información de un curso</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/cursos/{id}</td>
+            <td>Elimina un curso dado su Id</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/cursos</td>
+            <td>Elimina todos los cursos</td>
+        </tr>
+    </tbody>
+</table>
+
+Cuando se realiza la eliminación de algún curso, se realiza una petición HTTP al microservicio inscripción para eliminar todas las inscripciones relacioonadas con este curso eliminado.
+
+<h3>Microservicio de Estudiantes</h3>
+
+El microservicio de estudiantes se encarga de gestionar la información de los estudiantes. Permite crear un estudiante, leer un estudiante, listar los estudiantes, actualizar la información de un estudiante y eliminar estudiantes.
+<b>
+- Puerto: 8081
+- Base de datos H2
+</b>
+
+La documentación de los endpoints de este microservicio se encuentra en la siguiente URL:
+```
+http://localhost:8081/swagger-ui/index.html
+```
+Una vez arrancado el microservicio, se realizarán las peticiones en
+```
+http://localhost:8081/{ruta}
+```
+con las siguientes rutas
+<table>
+    <thead>
+        <tr>
+            <th>Método</th>
+            <th>Ruta</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</td>
+            <td>/api/estudiantes</td>
+            <td>Obtiene la lista completa de estudiantes</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/estudiantes/{id}</td>
+            <td>Obtiene un estudiante dado un Id</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/api/estudiantes</td>
+            <td>Crea un estudiante</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/api/estudiantes</td>
+            <td>Actualiza la información de un estudiante</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/estudiantes/{id}</td>
+            <td>Elimina un estudiante dado su Id</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/estudiantes</td>
+            <td>Elimina todos los estudiantes</td>
+        </tr>
+    </tbody>
+</table>
+
+
+Cuando se realiza la eliminación de algún estudiante, se realiza una petición HTTP al microservicio inscripción para eliminar todas las inscripciones relacioonadas con este estudiante eliminado.
+
+<h3>Microservicio de Inscripciones</h3>
+
+El microservicio de inscripciones se encarga de gestionar las inscripciones de estudiantes a cursos. La relación entre estudiantes y cursos es de muchos a muchos.
+Este microservicio permite crear registros de inscripciones dados por los Ids de cursos y estudiantes. Al tener una relación de muchos a muchos, la entidad principal (Inscripción) tendrá una clave primaria compuesta por idCurso e idEstudiante.
+Por lo tanto, este microservicio principalmente permite inscribir y desinscribir estudiantes a cursos.
+<b>
+- Puerto: 8082
+- Base de datos H2
+</b>
+
+La documentación de los endpoints de este microservicio se encuentra en la siguiente URL:
+```
+http://localhost:8082/swagger-ui/index.html
+```
+Una vez arrancado el microservicio, se realizarán las peticiones en
+```
+http://localhost:8082/{ruta}
+```
+con las siguientes rutas
+<table>
+    <thead>
+        <tr>
+            <th>Método</th>
+            <th>Ruta</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</td>
+            <td>/api/inscripciones/curso/{idCurso}</td>
+            <td>Obtiene la información de un curso y los estudiantes inscritos</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/api/inscripciones/curso</td>
+            <td>Permite inscribir uno o más estudiantes a un curso</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/inscripciones/curso</td>
+            <td>Desinscribe a uno o más estudiantes de un curso</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/inscripciones/curso/{idCurso}</td>
+            <td>Elimina todas las inscripciones de un curso dado su idCurso</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/inscripciones</td>
+            <td>Elimina todas las inscripciones</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/estudiantes/estudiante/{idEstudiante}</td>
+            <td>Elimina todas las inscripciones relacionadas con un estudiante dado su idEstudiante</td>
+        </tr>
+    </tbody>
+</table>
+
+Cuando se realiza una petición GET y POST, se hace una conexión HTTP a los microservicios de cursos y estudiantes para recuperar la información completa.
 
 

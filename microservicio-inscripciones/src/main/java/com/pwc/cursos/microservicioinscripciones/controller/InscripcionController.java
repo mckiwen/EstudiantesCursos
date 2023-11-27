@@ -78,7 +78,7 @@ public class InscripcionController {
      * @param inscripcionesDTO InscripcionesDTO
      * @return InscripcionesDTO
      */
-    @Operation(summary = "Desinscribe un grupo de estudiantes mediante una petición POST")
+    @Operation(summary = "Desinscribe un grupo de estudiantes mediante una petición DELETE")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Estudiantes desinscritos", content = @Content(examples = {
             @ExampleObject(value = EXAMPLE_VALUE_INSCRIPCIONES_JSON)
     }, mediaType = MediaType.APPLICATION_JSON_VALUE))
