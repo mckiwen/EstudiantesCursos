@@ -12,6 +12,8 @@ Esta aplicación de Spring Boot basada en microservicios permite gestionar curso
 2. <b>Microservicio de estudiantes:</b> Permite crear, leer, actualizar, eliminar y listar cursos.
 3. <b>Microservicio de inscripciones:</b> Permite obtener información de los cursos y alumnos inscritos en ellos, así como inscribir y desinscribir estudiantes de cursos.
 
+Los microservicios realizan peticiones HTTP entre ellas en caso de haber cambios relevantes como que se elimine un estudiante del registro o un curso. Inmediatamente dicho microservicio enviará esta información al microservicio de inscripciones para eliminar los registros de inscripciones relacionados con ese curso y/o estudiante.
+
 ## Características
 
 - Spring Boot 3.2.0
