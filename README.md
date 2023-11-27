@@ -1,17 +1,33 @@
 
-## Sistema de Gestión de Cursos con Microservicios con Spring Boot
+
+<h1>Sistema de Gestión de Cursos con Microservicios usando Spring Boot</h1>
+
+![Platform](https://img.shields.io/badge/Java-17%2B-red)
+![Framework](https://img.shields.io/badge/Spring%20Boot-3.2.0-green)
+
+## Descripción
 
 Esta aplicación de Spring Boot basada en microservicios permite gestionar cursos y estudiantes, utilizando Hibernate, Swagger y Docker. La aplicación consta de tres microservicios:
 1. <b>Microservicio de cursos:</b> Permite crear, leer, actualizar, eliminar y listar cursos.
 2. <b>Microservicio de estudiantes:</b> Permite crear, leer, actualizar, eliminar y listar cursos.
 3. <b>Microservicio de inscripciones:</b> Permite obtener información de los cursos y alumnos inscritos en ellos, así como inscribir y desinscribir estudiantes de cursos.
 
-## Requisitos
+## Características
 
-## Descripcion de los microservicios
+- Spring Boot 3.2.0
+- Java 17+
+- Maven
+- Swagger
+- Docker
 
-## Endpoints
+## Dependencias
 
-## Como usarlo
+- Spring Web
+- Spring Data JPA
+- H2 Database
+- Lombok
+- Spring Boot Dev Tools
 
-## URLs de swagger
+## Descripcion de los microservicios (puertos, endpoints, url de swagger, base de datos)
+
+## Como usarlo instrucciones de compilacion y ejecucion
