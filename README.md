@@ -159,7 +159,7 @@ El microservicio de estudiantes se encarga de gestionar la información de los e
 - Puerto: 8081
 - Base de datos H2
 </b>
-- 
+
 <h4><b>Swagger</b></h4>
 
 La documentación de los endpoints de este microservicio se encuentra en la siguiente URL:
