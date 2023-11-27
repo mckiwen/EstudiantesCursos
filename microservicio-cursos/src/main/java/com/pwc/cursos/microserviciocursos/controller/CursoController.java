@@ -84,7 +84,7 @@ public class CursoController {
      */
     @Operation(summary = "Crea un curso mediante una petición POST")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Curso creado", content = @Content(examples = {
-            @ExampleObject(value = EXAMPLE_VALUE_CURSO1_JSON)
+            @ExampleObject(value = EXAMPLE_VALUE_CURSO3_JSON)
     }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     @ApiResponse(responseCode = "400", description = "Petición errónea", content = @Content(examples = {
             @ExampleObject(value = "")}))

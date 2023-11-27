@@ -5,7 +5,6 @@ import com.pwc.cursos.microservicioinscripciones.dtos.EstudianteDTO;
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionesDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
-import com.pwc.cursos.microservicioinscripciones.entity.InscripcionId;
 import com.pwc.cursos.microservicioinscripciones.repository.InscripcionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +38,22 @@ public class InscripcionServiceImpl implements InscripcionService {
         this.inscripcionRepository = inscripcionRepository;
     }
 
+    /**
+     * Metodo que busca todas las inscripciones por idCurso.
+     * @param idCurso Id del Curso
+     * @return List
+     */
     @Override
     public List<Inscripcion> findAllByIdCurso(Long idCurso) {
         return this.inscripcionRepository.findAllByIdCurso(idCurso);
     }
 
+    /**
+     * Metodo que busca las inscripciones que tiene un curso dado su idCurso.
+     * Devuelva la informacion completa del curso y de los estudiantes mediante peticiones HTTP.
+     * @param idCurso Id del curso
+     * @return InscripcionCursoDTO
+     */
     @Override
     public Optional<InscripcionCursoDTO> findByIdCurso(Long idCurso) {
         boolean exists = this.inscripcionRepository.existsByIdCurso(idCurso);
@@ -83,6 +93,12 @@ public class InscripcionServiceImpl implements InscripcionService {
         return Optional.of(inscripcionCursoDTO);
     }
 
+    /**
+     * Metodo que guarda en el repositorio nuevas inscripciones dados por idCurso e ids de estudiantes.
+     * Comprueba si la inscripcion ya existe, en caso contrario, la guarda. Evita duplicados.
+     * @param inscripcionesDTO Objeto inscripcionesDTO
+     * @return InscripcionesDTO
+     */
     @Override
     public InscripcionesDTO save(InscripcionesDTO inscripcionesDTO) {
         Long idCurso = inscripcionesDTO.getIdCurso();
@@ -102,6 +118,12 @@ public class InscripcionServiceImpl implements InscripcionService {
         return inscripcionesDTO;
     }
 
+    /**
+     * Metodo que elimina inscripciones del repositorio dado idCurso e ids de estudiantes.
+     * Comprueba si existe el registro, en caso afirmativo lo elimina.
+     * @param inscripcionesDTO InscripcionesDTO
+     * @return inscripcionesDTO
+     */
     @Override
     public InscripcionesDTO delete(InscripcionesDTO inscripcionesDTO) {
         Long idCurso = inscripcionesDTO.getIdCurso();
@@ -121,28 +143,41 @@ public class InscripcionServiceImpl implements InscripcionService {
         return inscripcionesDTO;
     }
 
+    /**
+     * Metodo que elimina todas las inscripciones de un estudiante dado su idEstudiante.
+     * @param idEstudiante Id del estudiante
+     */
     @Override
     public void deleteByIdEstudiante(Long idEstudiante) {
         this.inscripcionRepository.deleteAllByIdEstudiante(idEstudiante);
     }
 
+    /**
+     * Metodo que elimina todas las inscripciones de un curso dado su idCurso.
+     * @param idCurso Id del curso
+     */
     @Override
     public void deleteByIdCurso(Long idCurso) {
         this.inscripcionRepository.deleteAllByIdCurso(idCurso);
     }
 
+    /**
+     * Metodo que elimina todas las inscripciones.
+     */
     @Override
     public void deleteAll() {
         this.inscripcionRepository.deleteAll();
     }
 
-
+    /**
+     * Metodo que comprueba si una Inscripcion existe.
+     * @param inscripcion Inscripcion
+     * @return boolean
+     */
     @Override
     public boolean existsByInscripcion(Inscripcion inscripcion) {
         Long idCurso = inscripcion.getIdCurso();
         Long idEstudiante = inscripcion.getIdEstudiante();
         return this.inscripcionRepository.existsByIdCursoAndIdEstudiante(idCurso, idEstudiante);
     }
-
-
 }
