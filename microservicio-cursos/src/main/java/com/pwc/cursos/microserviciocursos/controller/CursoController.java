@@ -28,6 +28,7 @@ public class CursoController implements ICursoController{
         this.cursoService = cursoService;
     }
 
+
     /**
      * Endpoint que obtiene la lista completa de cursos
      * @return ResponseEntity

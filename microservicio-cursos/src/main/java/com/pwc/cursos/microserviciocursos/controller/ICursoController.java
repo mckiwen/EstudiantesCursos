@@ -19,6 +19,7 @@ public interface ICursoController {
     String EXAMPLE_VALUE_CURSO3_JSON = "{\"id\": 9, \"nombre\": \"Django\", \"descripcion\": \"Curso de Django\", \"fechaInicio\": \"2024-06-15\", \"fechaFin\": \"2024-12-15\"}";
     String EXAMPLE_VALUE_CURSO_NOID_JSON = "{\"nombre\": \"Flask\", \"descripcion\": \"Curso de Flask\", \"fechaInicio\": \"2024-11-15\", \"fechaFin\": \"2025-06-15\"}";
 
+
     @Operation(summary = "Obtiene la lista completa de cursos")
     @ApiResponse(responseCode = "200", description = "Operación realizada con éxito: Recursos encontrados", content = @Content(examples = {
             @ExampleObject(value = "["+EXAMPLE_VALUE_CURSO1_JSON+", " +EXAMPLE_VALUE_CURSO2_JSON+"]")
