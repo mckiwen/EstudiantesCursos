@@ -67,8 +67,7 @@ public class InscripcionServiceImpl implements InscripcionService {
                     "http://" + hostCursos +":8080/api/cursos/" + idCurso,
                     CursoDTO.class);
         } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-            //log.error
+            log.error(e.getMessage(), e);
             return Optional.empty();
         }
 
@@ -102,7 +101,7 @@ public class InscripcionServiceImpl implements InscripcionService {
      * @return InscripcionesDTO
      */
     @Override
-    @Transactional // revierte en caso de error durante el método
+    @Transactional
     public InscripcionesDTO save(InscripcionesDTO inscripcionesDTO) {
         Long idCurso = inscripcionesDTO.getIdCurso();
         List<Long> listIdEstudiante = inscripcionesDTO.getIdEstudianteList();
@@ -110,11 +109,11 @@ public class InscripcionServiceImpl implements InscripcionService {
         for(Long idEstudiante : listIdEstudiante){
             Inscripcion inscripcion = new Inscripcion(idCurso, idEstudiante);
             if(!existsByInscripcion(inscripcion)){
-                log.info("Inscripcion realizada con éxito");
                 this.inscripcionRepository.save(inscripcion);
+                log.info("Inscripcion realizada con éxito");
                 listEstudianteInscrito.add(idEstudiante);
             } else {
-                log.warn("Inscripcion idCurso: " + idCurso + " idEstudiante: " + idEstudiante + " ya existe.");
+                log.error("Inscripcion idCurso: " + idCurso + " idEstudiante: " + idEstudiante + " ya existe.");
             }
         }
         inscripcionesDTO.setIdEstudianteList(listEstudianteInscrito);
@@ -128,6 +127,7 @@ public class InscripcionServiceImpl implements InscripcionService {
      * @return inscripcionesDTO
      */
     @Override
+    @Transactional
     public InscripcionesDTO delete(InscripcionesDTO inscripcionesDTO) {
         Long idCurso = inscripcionesDTO.getIdCurso();
         List<Long> listIdEstudiante = inscripcionesDTO.getIdEstudianteList();
@@ -135,11 +135,11 @@ public class InscripcionServiceImpl implements InscripcionService {
         for(Long idEstudiante : listIdEstudiante){
             Inscripcion inscripcion = new Inscripcion(idCurso, idEstudiante);
             if(existsByInscripcion(inscripcion)){
-                log.info("Baja realizada con éxito");
                 this.inscripcionRepository.delete(inscripcion);
+                log.info("Baja realizada con éxito");
                 listEstudianteBaja.add(idEstudiante);
             } else {
-                log.warn("Inscripcion idCurso: " + idCurso + " idEstudiante: " + idEstudiante + " no existe.");
+                log.error("Inscripcion idCurso: " + idCurso + " idEstudiante: " + idEstudiante + " no existe.");
             }
         }
         inscripcionesDTO.setIdEstudianteList(listEstudianteBaja);
@@ -151,6 +151,7 @@ public class InscripcionServiceImpl implements InscripcionService {
      * @param idEstudiante Id del estudiante
      */
     @Override
+    @Transactional
     public void deleteByIdEstudiante(Long idEstudiante) {
         this.inscripcionRepository.deleteAllByIdEstudiante(idEstudiante);
     }
@@ -160,6 +161,7 @@ public class InscripcionServiceImpl implements InscripcionService {
      * @param idCurso Id del curso
      */
     @Override
+    @Transactional
     public void deleteByIdCurso(Long idCurso) {
         this.inscripcionRepository.deleteAllByIdCurso(idCurso);
     }
@@ -168,6 +170,7 @@ public class InscripcionServiceImpl implements InscripcionService {
      * Metodo que elimina todas las inscripciones.
      */
     @Override
+    @Transactional
     public void deleteAll() {
         this.inscripcionRepository.deleteAll();
     }
