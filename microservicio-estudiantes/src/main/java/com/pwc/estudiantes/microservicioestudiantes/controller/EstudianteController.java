@@ -54,7 +54,7 @@ public class EstudianteController implements IEstudianteController{
         log.info("Petición GET para buscar un estudiante por Id");
         Optional<Estudiante> estudianteOpt = this.estudianteService.findById(id);
         if(!estudianteService.existsById(id)){
-            log.warn("Recurso no encontrado");
+            log.error("Recurso no encontrado");
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(estudianteOpt.get());
@@ -69,7 +69,7 @@ public class EstudianteController implements IEstudianteController{
     public ResponseEntity<Estudiante> create(@RequestBody Estudiante estudiante){
         log.info("Petición POST para registrar un nuevo estudiante");
         if(estudiante.getId() != null){
-            log.warn("Petición POST para registrar un nuevo estudiante no debe contener un Id");
+            log.error("Petición POST para registrar un nuevo estudiante no debe contener un Id");
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(this.estudianteService.save(estudiante));
@@ -84,11 +84,11 @@ public class EstudianteController implements IEstudianteController{
     public ResponseEntity<Estudiante> update(@RequestBody Estudiante estudiante){
         log.info("Petición PUT para actualizar los datos de un estudiante existente");
         if(estudiante.getId() == null){
-            log.warn("Petición PUT para actualizar los datos de un estudiante existente debe contener un Id");
+            log.error("Petición PUT para actualizar los datos de un estudiante existente debe contener un Id");
             return ResponseEntity.badRequest().build();
         }
         if(!estudianteService.existsById(estudiante.getId())){
-            log.warn("Recurso no encontrado");
+            log.error("Recurso no encontrado");
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(this.estudianteService.save(estudiante));
@@ -104,7 +104,7 @@ public class EstudianteController implements IEstudianteController{
     public ResponseEntity<Estudiante> deleteById(@PathVariable Long id){
         log.info("Petición DELETE para eliminar a un estudiante existente");
         if(!estudianteService.existsById(id)){
-            log.warn("Recurso no encontrado");
+            log.error("Recurso no encontrado");
             return ResponseEntity.notFound().build();
         }
         this.estudianteService.delete(id);

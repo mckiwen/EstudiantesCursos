@@ -2,6 +2,7 @@ package com.pwc.estudiantes.microservicioestudiantes.service;
 
 import com.pwc.estudiantes.microservicioestudiantes.entity.Estudiante;
 import com.pwc.estudiantes.microservicioestudiantes.repository.EstudianteRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,7 @@ public class EstudianteServiceImpl implements EstudianteService{
      * @return Estudiante
      */
     @Override
+    @Transactional
     public Estudiante save(Estudiante estudiante) {
         log.info("Ejecutando método para guardar un estudiante");
         return this.estudianteRepository.save(estudiante);
@@ -71,12 +73,13 @@ public class EstudianteServiceImpl implements EstudianteService{
      * @param id Id de Estudiante
      */
     @Override
+    @Transactional
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un estudiante");
         try{
             restTemplate.delete("http://" + hostInscripciones + ":8082/api/inscripciones/estudiante/"+id);
         } catch (Exception e){
-            log.warn(e.getMessage());
+            log.error(e.getMessage(), e);
         }
         this.estudianteRepository.deleteById(id);
     }
@@ -85,12 +88,13 @@ public class EstudianteServiceImpl implements EstudianteService{
      * Metodo para eliminar todos los Estudiantes del repositorio.
      */
     @Override
+    @Transactional
     public void deleteAll() {
         log.info("Ejecutando método para eliminar todos los estudiantes");
         try{
             restTemplate.delete("http://" + hostInscripciones + ":8082/api/inscripciones");
         } catch (Exception e){
-            log.warn(e.getMessage());
+            log.error(e.getMessage(), e);
         }
         this.estudianteRepository.deleteAll();
     }
