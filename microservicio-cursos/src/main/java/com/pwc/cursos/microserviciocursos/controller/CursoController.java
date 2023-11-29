@@ -53,7 +53,7 @@ public class CursoController implements ICursoController{
         log.info("Petición GET para buscar curso por Id");
         Optional<Curso> cursoOpt = this.cursoService.findById(id);
         if(!cursoService.existsById(id)){
-            log.warn("Recurso no encontrado");
+            log.error("Recurso no encontrado");
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(cursoOpt.get());
@@ -68,7 +68,7 @@ public class CursoController implements ICursoController{
     public ResponseEntity<Curso> create(@RequestBody Curso curso){
         log.info("Petición POST para crear un nuevo curso");
         if(curso.getId() != null){
-            log.warn("Petición POST para crear un nuevo curso no debe contener un Id");
+            log.error("Petición POST para crear un nuevo curso no debe contener un Id");
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(this.cursoService.save(curso));
@@ -83,11 +83,11 @@ public class CursoController implements ICursoController{
     public ResponseEntity<Curso> update(@RequestBody Curso curso){
         log.info("Petición PUT para actualizar un curso existente");
         if(curso.getId() == null){
-            log.warn("Petición PUT para actualizar un curso existente debe contener un Id");
+            log.error("Petición PUT para actualizar un curso existente debe contener un Id");
             return ResponseEntity.badRequest().build();
         }
         if(!cursoService.existsById(curso.getId())){
-            log.warn("Recurso no encontrado");
+            log.error("Recurso no encontrado");
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(this.cursoService.save(curso));
@@ -102,7 +102,7 @@ public class CursoController implements ICursoController{
     public ResponseEntity<Curso> deleteById(@PathVariable Long id){
         log.info("Petición DETELE para eliminar un curso existente");
         if(!cursoService.existsById(id)){
-            log.warn("Recurso no encontrado");
+            log.error("Recurso no encontrado");
             return ResponseEntity.notFound().build();
         }
         this.cursoService.delete(id);

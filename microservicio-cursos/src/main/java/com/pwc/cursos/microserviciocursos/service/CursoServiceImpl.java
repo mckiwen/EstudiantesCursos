@@ -2,6 +2,7 @@ package com.pwc.cursos.microserviciocursos.service;
 
 import com.pwc.cursos.microserviciocursos.entity.Curso;
 import com.pwc.cursos.microserviciocursos.repository.CursoRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public class CursoServiceImpl implements CursoService {
      * @return Curso
      */
     @Override
+    @Transactional
     public Curso save(Curso curso) {
         log.info("Ejecutando método para guardar un curso");
         return this.cursoRepository.save(curso);
@@ -66,12 +68,13 @@ public class CursoServiceImpl implements CursoService {
      * @param id Id de Curso
      */
     @Override
+    @Transactional
     public void delete(Long id) {
         log.info("Ejecutando método para eliminar un curso");
         try{
             restTemplate.delete("http://" + hostInscripciones +":8082/api/inscripciones/curso/"+id);
         } catch (Exception e){
-            log.warn(e.getMessage());
+            log.error(e.getMessage(), e);
         }
         this.cursoRepository.deleteById(id);
     }
@@ -80,14 +83,14 @@ public class CursoServiceImpl implements CursoService {
      * Metodo para eliminar todos los Cursos del repositorio.
      */
     @Override
+    @Transactional
     public void deleteAll() {
         log.info("Ejecutando método para eliminar todos los cursos");
         try{
             restTemplate.delete("http://" + hostInscripciones + ":8082/api/inscripciones");
         } catch (Exception e){
-            log.warn(e.getMessage());
+            log.error(e.getMessage(), e);
         }
-
         this.cursoRepository.deleteAll();
     }
 

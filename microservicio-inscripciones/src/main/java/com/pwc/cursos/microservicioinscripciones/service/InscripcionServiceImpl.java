@@ -6,6 +6,7 @@ import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionCursoDTO;
 import com.pwc.cursos.microservicioinscripciones.dtos.InscripcionesDTO;
 import com.pwc.cursos.microservicioinscripciones.entity.Inscripcion;
 import com.pwc.cursos.microservicioinscripciones.repository.InscripcionRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,8 @@ public class InscripcionServiceImpl implements InscripcionService {
                     "http://" + hostCursos +":8080/api/cursos/" + idCurso,
                     CursoDTO.class);
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            log.warn(e.getMessage(), e);
+            //log.error
             return Optional.empty();
         }
 
@@ -100,6 +102,7 @@ public class InscripcionServiceImpl implements InscripcionService {
      * @return InscripcionesDTO
      */
     @Override
+    @Transactional // revierte en caso de error durante el método
     public InscripcionesDTO save(InscripcionesDTO inscripcionesDTO) {
         Long idCurso = inscripcionesDTO.getIdCurso();
         List<Long> listIdEstudiante = inscripcionesDTO.getIdEstudianteList();
